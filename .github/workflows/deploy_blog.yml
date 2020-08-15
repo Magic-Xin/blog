@@ -14,22 +14,24 @@ jobs:
           node-version: '12'
     
     - name: prepare build env
-      env:
-        REPO_KEY: ${{ secrets.REPO_KEY }}
       run: |
         mkdir -p ~/.ssh/
-        echo "$REPO_KEY" > ~/.ssh/id_rsa
+        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan github.com >> ~/.ssh/known_hosts
         git config --global user.name 'MagicXin'
         git config --global user.email 'x.yu2000@163.com'
         
-    - name: Install dependencies
+    - name: Install hexo
       run: |
-        npm i -g hexo-cli
-        npm i
-        npm i next-them/hexo-next-three
-        npm i hexo-generator-searchdb --save
+        npm install hexo-cli -g
+        npm install
+        hexo clean
+        
+    - name: Install plugins
+      run: |
+        npm install next-them/hexo-next-three
+        npm install hexo-generator-searchdb --save
         git clone git@github.com:next-theme/theme-next-fancybox3  --depth=1 themes/next/source/lib/fancybox
         git clone git@github.com:next-theme/theme-next-pace --depth=1 themes/next/source/lib/pace
   
