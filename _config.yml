@@ -106,3 +106,26 @@ deploy:
   type: git
   repo: https://github.com/Magic-Xin/Magic-Xin.github.io/
   branch: master
+
+# Search
+search:
+  path: search.json
+  field: post
+  content: true
+  format: html
+
+# JavaScript 3D library.
+# Dependencies: https://github.com/next-theme/hexo-next-three
+three:
+  enable: true
+  defer: true
+  cdn:
+  waves:
+    enable: true
+    cdn:
+  lines:
+    enable: false
+    cdn:
+  sphere:
+    enable: false
+    cdn:
