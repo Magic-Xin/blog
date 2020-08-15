@@ -27,10 +27,10 @@ jobs:
         git config --global user.email 'x.yu2000@163.com'
         npm i -g hexo-cli
         npm i
-        npm install next-them/hexo-next-three
+        # npm install next-them/hexo-next-three
         npm install hexo-generator-searchdb --save
-        git clone https://github.com/next-theme/theme-next-fancybox3  --depth=1 themes/next/source/lib/fancybox
-        git clone https://github.com/next-theme/theme-next-pace --depth=1 themes/next/source/lib/pace
+        git clone git@github.com:next-theme/theme-next-fancybox3  --depth=1 themes/next/source/lib/fancybox
+        git clone git@github.com:next-theme/theme-next-pace --depth=1 themes/next/source/lib/pace
   
     - name: Deploy
       run: |
