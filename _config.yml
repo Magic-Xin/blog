@@ -121,11 +121,11 @@ three:
   defer: true
   cdn:
   waves:
-    enable: true
+    enable: false
     cdn:
   lines:
     enable: false
     cdn:
   sphere:
-    enable: false
+    enable: true
     cdn:
