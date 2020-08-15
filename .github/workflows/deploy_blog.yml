@@ -35,4 +35,4 @@ jobs:
   
     - name: Deploy
       run: |
-        hexo g -d
+        hexo d -g
