@@ -18,6 +18,7 @@ jobs:
         mkdir -p ~/.ssh/
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
+        git remote -v
         ssh-keyscan github.com >> ~/.ssh/known_hosts
         git config --global user.name 'Magic-Xin'
         git config --global user.email 'x.yu2000@163.com'
