@@ -31,6 +31,7 @@ jobs:
         
     - name: Install plugins
       run: |
+        npm install hexo-deployer-git --save
         npm install hexo-next-three --save
         npm install hexo-generator-searchdb --save
         git clone git@github.com:next-theme/theme-next-fancybox3  --depth=1 themes/next/source/lib/fancybox
