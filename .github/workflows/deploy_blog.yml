@@ -34,8 +34,20 @@ jobs:
         npm install hexo-deployer-git --save
         npm install hexo-next-three --save
         npm install hexo-generator-searchdb --save
-        git clone https://github.com/next-theme/theme-next-fancybox3  --depth=1 themes/next/source/lib/fancybox
-        git clone https://github.com/next-theme/theme-next-pace --depth=1 themes/next/source/lib/pace
+        
+    - name: Clone fancybox
+      uses: actions/checkout@v2
+      with:
+        repository: next-theme/theme-next-fancybox3
+        token: ${{ secrets.REPO_TOKEN }}
+        path: themes/next/source/lib/fancybox
+        
+    - name: Clone pace
+      uses: actions/checkout@v2
+      with:
+        repository: next-theme/theme-next-pac
+        token: ${{ secrets.REPO_TOKEN }}
+        path: themes/next/source/lib/pace
   
     - name: Deploy
       run: |
