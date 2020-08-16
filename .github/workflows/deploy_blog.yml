@@ -20,7 +20,7 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan github.com >> ~/.ssh/known_hosts
         git remote set-url origin git@github.com:Magic-Xin/Magic-Xin.github.io.git
-        git config --global user.name 'MagicXin'
+        git config --global user.name 'Magic-Xin'
         git config --global user.email 'x.yu2000@163.com'
         
     - name: Install hexo
