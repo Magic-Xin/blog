@@ -137,3 +137,5 @@ symbols_count_time:
  # 网页底部是否显示
   total_symbols: true
   total_time: true
+  awl: 4                # 计算字数的一个设置,没设置过
+  wpm: 275              # 一分钟阅读的字数

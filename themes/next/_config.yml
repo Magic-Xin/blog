@@ -464,7 +464,7 @@ exturl: false
 
 # Google Webmaster tools verification.
 # See: https://www.google.com/webmasters
-google_site_verification: google_site_verification
+google_site_verification: YTZlR777UOEBQzwNSF4ytM8o7RoLAC0kkQy7TCyonoI
 
 # Bing Webmaster tools verification.
 # See: https://www.bing.com/webmaster
@@ -673,7 +673,7 @@ google_analytics:
   only_pageview: false
 
 # Baidu Analytics
-baidu_analytics: 0OC1TVEvea
+baidu_analytics: 273598842dc646d5ceb906e1706c6bc7
 
 # Growingio Analytics
 growingio_analytics: # <project_id>
