@@ -104,8 +104,7 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: 
-      git@github.com:Magic-Xin/Magic-Xin.github.io.git
+  repo: git@github.com:Magic-Xin/Magic-Xin.github.io.git
   branch: master
 
 # Search
@@ -130,3 +129,11 @@ three:
   sphere:
     enable: false
     cdn:
+
+symbols_count_time:
+ #文章内是否显示
+  symbols: true
+  time: true
+ # 网页底部是否显示
+  total_symbols: true
+  total_time: true
