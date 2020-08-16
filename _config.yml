@@ -104,7 +104,8 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/Magic-Xin/Magic-Xin.github.io.git
+  repo: 
+      git@github.com:Magic-Xin/Magic-Xin.github.io.git
   branch: master
 
 # Search
