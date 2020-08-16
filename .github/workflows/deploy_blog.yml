@@ -18,9 +18,11 @@ jobs:
         mkdir -p ~/.ssh/
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        git remote -v
-        git remote set-url origin https://github.com/Magic-Xin/Magic-Xin.github.io.git
         ssh-keyscan github.com >> ~/.ssh/known_hosts
+        ssh -T git@github.com
+        echo "yes"
+        git remote set-url origin git@github.com:Magic-Xin/Magic-Xin.github.io.git
+        git remote -v
         git config --global user.name 'Magic-Xin'
         git config --global user.email 'x.yu2000@163.com'
         
