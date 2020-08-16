@@ -5,7 +5,7 @@ tags:
 ---
 今天想起来自己还有个这个 Blog，但因为 http://magicxin.tech 这个域名没有备案，80 和 443 端口被阿里云强制关掉了，所以之前大概有三四个月的时间都是无法正常访问的
 
-这次把域名换成了 https://blog.magicxin.tech 来钻阿里云政策的空子，顺便用了土法Https。域名解析并不是用 CHAME 解析到 https://Magic-Xin.github.io，而是提交了四个 A 记录，分别解析到
+这次把域名换成了 https://blog.magicxin.tech 来钻阿里云政策的空子，顺便用了土法Https。域名解析并不是用 CHAME 解析到 https://Magic-Xin.github.io, 而是提交了四个 A 记录，分别解析到
 
     185.199.108.153
     185.199.109.153
