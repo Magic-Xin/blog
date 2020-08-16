@@ -12,26 +12,32 @@ jobs:
     - uses: actions/setup-node@v2-beta
       with:
           node-version: '12'
-        
-    - name: Install Hexo
+    
+    - name: prepare build env
       run: |
+        mkdir -p ~/.ssh/
+        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+        git remote set-url origin git@github.com:Magic-Xin/Magic-Xin.github.io.git
+        git config --global user.name 'MagicXin'
+        git config --global user.email 'x.yu2000@163.com'
+        
+    - name: Install hexo
+      run: |
+        npm install -g npm
         npm install hexo-cli -g
         npm install
+        hexo clean
+        
+    - name: Install plugins
+      run: |
         npm install hexo-deployer-git --save
         npm install hexo-next-three --save
         npm install hexo-generator-searchdb --save
         git clone git@github.com:next-theme/theme-next-fancybox3  --depth=1 themes/next/source/lib/fancybox
         git clone git@github.com:next-theme/theme-next-pace --depth=1 themes/next/source/lib/pace
-        
-    - name: Hexi generate
-      run: |
-        hexo clean
-        hexo g
   
-    - name: Build and Deploy
-      uses: y4code/hexo-deploy-action@master
-      env:
-        PERSONAL_TOKEN: ${{ secrets.REPO_TOKEN }}
-        PUBLISH_REPOSITORY: Magic-Xin/Magic-Xin.github.io
-        BRANCH: master
-        PUBLISH_DIR: ./
+    - name: Deploy
+      run: |
+        hexo d -g
