@@ -137,3 +137,8 @@ symbols_count_time:
   total_time: true
   awl: 2
   wpm: 300
+  
+baidusitemap:
+    path: baidusitemap.xml
+sitemap:
+    path: sitemap.xml
