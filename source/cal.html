@@ -1,0 +1,109 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>R6S ADS calculator for Y5S3</title>
+    <script language="javascript">
+        function cal() {
+            var ads = Number(document.Cal.ADS.value)
+            if (ads < 0 || ads > 100) {
+                alert("ADS Error!")
+                return false;
+            }
+            document.Cal.num1.value = Math.round(ads * 0.7);
+            document.Cal.num2.value = Math.round(ads * 0.8);
+            document.Cal.num3.value = Math.round(ads * 0.9);
+            document.Cal.num4.value = Math.round(ads * 1.0);
+
+            var res5 = Math.round(ads * 1.1);
+            if(res5 > 100){
+                document.Cal.num5.value = 100;
+            }
+            else{
+                document.Cal.num5.value = res5
+            }
+
+            var res6 = Math.round(ads * 1.3);
+            if(res6 > 100){
+                document.Cal.num6.value = 100;
+            }
+            else{
+                document.Cal.num6.value = res6
+            }
+
+            var res7 = Math.round(ads * 1.5);
+            if(res7 > 100){
+                document.Cal.num7.value = 100;
+            }
+            else{
+                document.Cal.num7.value = res7
+            }
+
+            var res8 = Math.round(ads * 2.9);
+            if(res8 > 100){
+                document.Cal.num8.value = 100;
+            }
+            else{
+                document.Cal.num8.value = res8
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <form name="Cal" action="" method="get">
+        <h3 align="center" style="font-size: x-large;">R6S ADS calculator for Y5S3</h3>
+        <p align="center" style="font-size:small">ver 0.0.1</p>
+        <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            请输入你的旧ADS (Please enter your old ADS)：
+            <td><input type="text" name="ADS"></td>
+            <td><input type="button" value="OK" onclick="cal()"></td>
+        </p>
+        <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新ADS (Your new ADS)：
+        </p>
+        <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            1x :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" name="num1">
+        </p>
+        <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            1.5x :&nbsp;&nbsp;
+            <input type="text" name="num2">
+        </p>
+        <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            2x :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" name="num3">
+        </p>
+        <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            2.5x :&nbsp;&nbsp;
+            <input type="text" name="num4">
+        </p>
+        <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            3x :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" name="num5">
+        </p>
+        <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            4x :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" name="num6">
+        </p>
+        <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            5x :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" name="num7">
+        </p>
+        <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            12x :&nbsp;&nbsp;&nbsp;
+            <input type="text" name="num8">
+        </p>
+</body>
+
+</html>
