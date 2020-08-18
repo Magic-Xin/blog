@@ -11,11 +11,18 @@
                 return false;
             }
             document.Cal.num1.value = Math.round(ads * 0.7);
-            document.Cal.num2.value = Math.round(ads * 0.8);
-            document.Cal.num3.value = Math.round(ads * 0.9);
-            document.Cal.num4.value = Math.round(ads * 1.0);
+            document.Cal.num2.value = Math.round(ads * 0.9);
+            document.Cal.num3.value = Math.round(ads * 1.0);
+            
+            var res4 = Math.round(ads * 1.05);
+            if(res4 > 100){
+                document.Cal.num4.value = 100;
+            }
+            else{
+                document.Cal.num4.value = res5
+            }
 
-            var res5 = Math.round(ads * 1.1);
+            var res5 = Math.round(ads * 1.075);
             if(res5 > 100){
                 document.Cal.num5.value = 100;
             }
@@ -23,7 +30,7 @@
                 document.Cal.num5.value = res5
             }
 
-            var res6 = Math.round(ads * 1.3);
+            var res6 = Math.round(ads * 1.094);
             if(res6 > 100){
                 document.Cal.num6.value = 100;
             }
@@ -31,7 +38,7 @@
                 document.Cal.num6.value = res6
             }
 
-            var res7 = Math.round(ads * 1.5);
+            var res7 = Math.round(ads * 1.098);
             if(res7 > 100){
                 document.Cal.num7.value = 100;
             }
@@ -39,7 +46,7 @@
                 document.Cal.num7.value = res7
             }
 
-            var res8 = Math.round(ads * 2.9);
+            var res8 = Math.round(ads * 1.099);
             if(res8 > 100){
                 document.Cal.num8.value = 100;
             }
@@ -53,8 +60,8 @@
 <body>
     <form name="Cal" action="" method="get">
         <h3 align="center" style="font-size: x-large;">R6S ADS calculator for Y5S3</h3>
-        <p align="center" style="font-size:small">made by MagicXin</p>
-        <p align="center" style="font-size:small">ver 0.0.1</p>
+        <p align="center" style="font-size:medium">made by MagicXin</p>
+        <p align="center" style="font-size:small">ver 0.0.2</p>
         <p>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             请输入你的旧ADS (Please enter your old ADS)：
