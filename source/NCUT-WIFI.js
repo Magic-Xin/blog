@@ -1,9 +1,10 @@
 // Variables used by Scriptable.
 // These must be at the very top of the file. Do not edit.
-// icon-color: deep-blue; icon-glyph: magic;
+// icon-color: red; icon-glyph: magic;
 // NCUT-WIFI
+// ver 1.0.1
 // Made by MagicXin
-// 调用参数 学号
+// 调用参数填写学号
 
 class Im3xWidget {
 	/**
@@ -17,11 +18,7 @@ class Im3xWidget {
 
 	//渲染组件
 	async render() {
-		if (this.arg == "") {
-			let w = new ListWidget()
-			w.addText("请输入学号")
-			return w
-		} else if (this.widgetSize === 'medium') {
+		if (this.widgetSize === 'medium') {
 			return await this.renderSmall()
 		} else if (this.widgetSize === 'large') {
 			return await this.renderLarge()
@@ -45,7 +42,8 @@ class Im3xWidget {
 		title.textColor = new Color("#620062");
 		widget.addSpacer(7.5);
 
-		if (data != null) {
+		let online = this.isOnline();
+		if (online) {
 			let used_text = widget.addText("已用流量: ");
 			used_text.textColor = new Color("#000000");
 			used_text.font = Font.boldSystemFont(15);
@@ -90,19 +88,21 @@ class Im3xWidget {
 
 			let date_data = widget.addText('更新于:' + this.nowDate());
 			date_data.font = Font.systemFont(10);
-			date_data.textColor = new Color("#000000");
+			date_data.textColor = new Color("#696969");
 			date_data.centerAlignText();
 
 			let date_time = widget.addText(this.nowTime());
 			date_time.font = Font.systemFont(10);
-			date_time.textColor = new Color("#000000");
+			date_time.textColor = new Color("#696969");
 			date_time.centerAlignText();
 		}
 
 		widget.backgroundColor = new Color("#FFFFFF");
 
-		let nextRefresh = Date.now() + 1800000;
-		widget.refreshAfterDate = new Date(nextRefresh);
+		let nextRefresh = Date.now() + 10000;
+		if (online) {
+			widget.refreshAfterDate = new Date(nextRefresh);
+		}
 		return widget;
 	}
 
@@ -128,6 +128,14 @@ class Im3xWidget {
 		let res = await req.loadString();
 		let data = res.match(/([1-9]\d*\.\d*)|(0\.\d*[1-9])/g);
 		return data;
+	}
+
+	//判断网络情况
+	async isOnline() {
+		let wv = new WebView();
+		let url = '192.168.254.251';
+		let res = await wv.evaluateJavaScript(url);
+		return res;
 	}
 
 	//加载远程图片
