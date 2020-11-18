@@ -2,7 +2,7 @@
 // These must be at the very top of the file. Do not edit.
 // icon-color: red; icon-glyph: magic;
 // NCUT-WIFI
-// ver 1.0.1
+// ver 1.0.3
 // Made by MagicXin
 // 调用参数填写学号
 
@@ -32,18 +32,17 @@ class Im3xWidget {
 		const widget = new ListWidget();
 		let data = await this.getData();
 
-		let header = widget.addStack();
-		let icon = header.addImage(await this.getImage('https://blog.magicxin.tech/NCUT.jpg'));
-		icon.imageSize = new Size(15, 15);
-		header.addSpacer(7.5);
-		let title = header.addText(this.arg);
-		title.textOpacity = 0.9;
-		title.font = Font.systemFont(14);
-		title.textColor = new Color("#620062");
-		widget.addSpacer(7.5);
+		if (this.isNCUT()) {
+			let header = widget.addStack();
+			let icon = header.addImage(await this.getImage('https://blog.magicxin.tech/NCUT.jpg'));
+			icon.imageSize = new Size(15, 15);
+			header.addSpacer(7.5);
+			let title = header.addText(this.arg);
+			title.textOpacity = 0.9;
+			title.font = Font.systemFont(14);
+			title.textColor = new Color("#620062");
+			widget.addSpacer(7.5);
 
-		let online = this.isOnline();
-		if (online) {
 			let used_text = widget.addText("已用流量: ");
 			used_text.textColor = new Color("#000000");
 			used_text.font = Font.boldSystemFont(15);
@@ -95,14 +94,12 @@ class Im3xWidget {
 			date_time.font = Font.systemFont(10);
 			date_time.textColor = new Color("#696969");
 			date_time.centerAlignText();
+
+			widget.backgroundColor = new Color("#FFFFFF");
 		}
 
-		widget.backgroundColor = new Color("#FFFFFF");
-
-		let nextRefresh = Date.now() + 10000;
-		if (online) {
-			widget.refreshAfterDate = new Date(nextRefresh);
-		}
+		let nextRefresh = Date.now() + 15000;
+		widget.refreshAfterDate = new Date(nextRefresh);
 		return widget;
 	}
 
@@ -130,12 +127,18 @@ class Im3xWidget {
 		return data;
 	}
 
-	//判断网络情况
-	async isOnline() {
-		let wv = new WebView();
-		let url = '192.168.254.251';
-		let res = await wv.evaluateJavaScript(url);
-		return res;
+	//判断网络环境
+	async isNCUT() {
+		let account = this.arg;
+		let url = 'http://192.168.254.251:801/eportal/?c=ServiceInterface&a=loadUserInfo&callback=jQuery111305347245247052315_1603940434479&account=' + account + '&_=1603940434480';
+		let req = new Request(url);
+		req.timeoutinterval = 10;
+		try {
+			await req.loadString();
+		} catch (err) {
+			return false;
+		}
+		return true;
 	}
 
 	//加载远程图片
