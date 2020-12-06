@@ -2,7 +2,7 @@
 // These must be at the very top of the file. Do not edit.
 // icon-color: red; icon-glyph: magic;
 // NCUT-WIFI
-// ver 1.0.4
+// ver 1.0.5
 // Made by MagicXin
 // 调用参数填写学号
 
@@ -12,30 +12,35 @@ class Im3xWidget {
 	 * @param arg 外部传递过来的参数
 	 */
 	constructor(arg) {
-		this.arg = arg
-		this.widgetSize = config.widgetFamily
+		this.arg = arg;
+		this.widgetSize = config.widgetFamily;
+		this.FILE_MGR = FileManager[module.filename.includes('Documents/iCloud~') ? 'iCloud' : 'local']();
 	}
 
 	//渲染组件
 	async render() {
-		const data = await this.getData();
-		if (data != null) {
-			if (this.widgetSize === 'medium') {
-				return await this.renderSmall(data)
-			} else if (this.widgetSize === 'large') {
-				return await this.renderLarge()
-			} else {
-				return await this.renderSmall(data)
-			}
+		if (this.widgetSize === 'medium') {
+			return await this.renderSmall()
+		} else if (this.widgetSize === 'large') {
+			return await this.renderLarge()
+		} else {
+			return await this.renderSmall()
 		}
 	}
 
 	//渲染小尺寸组件
-	async renderSmall(data) {
+	async renderSmall() {
+		await this.getData();
+		const data = this.FILE_MGR.readString(this.FILE_MGR.joinPath(this.FILE_MGR.documentsDirectory(), "NCUT_data")).split(",");
 		const widget = new ListWidget();
 
 		let header = widget.addStack();
-		let icon = header.addImage(await this.getImage('https://blog.magicxin.tech/NCUT.jpg'));
+		let icon;
+		if (this.FILE_MGR.fileExists(this.FILE_MGR.joinPath(this.FILE_MGR.documentsDirectory(), "NCUT_image"))) {
+			icon = header.addImage(this.FILE_MGR.readImage(this.FILE_MGR.joinPath(this.FILE_MGR.documentsDirectory(), "NCUT_image")));
+		} else {
+			icon = header.addImage(await this.getImage('https://blog.magicxin.tech/NCUT.jpg'));
+		}
 		icon.imageSize = new Size(15, 15);
 		header.addSpacer(7.5);
 		let title = header.addText(this.arg);
@@ -86,12 +91,12 @@ class Im3xWidget {
 		}
 		widget.addSpacer(5);
 
-		let date_data = widget.addText('更新于:' + this.nowDate());
+		let date_data = widget.addText('更新于:' + data[2]);
 		date_data.font = Font.systemFont(10);
 		date_data.textColor = new Color("#696969");
 		date_data.centerAlignText();
 
-		let date_time = widget.addText(this.nowTime());
+		let date_time = widget.addText(data[3]);
 		date_time.font = Font.systemFont(10);
 		date_time.textColor = new Color("#696969");
 		date_time.centerAlignText();
@@ -119,36 +124,41 @@ class Im3xWidget {
 
 	//加载数据
 	async getData() {
-		let account = this.arg;
-		let url = 'http://192.168.254.251:801/eportal/?c=ServiceInterface&a=loadUserInfo&callback=jQuery111305347245247052315_1603940434479&account=' + account + '&_=1603940434480';
-		let req = new Request(url);
-		try {
-			let res = await req.loadString();
-			let data = res.match(/([1-9]\d*\.\d*)|(0\.\d*[1-9])/g);
-			return data;
-		} catch (err) {
-			return null;
+		const account = this.arg;
+		const url = 'http://192.168.254.251:801/eportal/?c=ServiceInterface&a=loadUserInfo&callback=jQuery111305347245247052315_1603940434479&account=' + account + '&_=1603940434480';
+		const request = new Request(url);
+		const result = await Promise.any([request.loadString(), wait(1000)]);
+
+		function wait(ms) {
+			return new Promise((resolve) => Timer.schedule(ms, false, resolve));
 		}
+
+		if (typeof (result) != "undefined") {
+			let data = result.match(/([1-9]\d*\.\d*)|(0\.\d*[1-9])/g);
+			await this.nowDate(data);
+			this.FILE_MGR.writeString(this.FILE_MGR.joinPath(this.FILE_MGR.documentsDirectory(), "NCUT_data"), data.toString());
+		}
+		return;
 	}
 
 	//加载远程图片
 	async getImage(url) {
-		let req = new Request(url)
-		return await req.loadImage()
+		const req = new Request(url);
+		const img = await req.loadImage();
+		await this.FILE_MGR.writeImage(this.FILE_MGR.joinPath(this.FILE_MGR.documentsDirectory(), "NCUT_image"), img);
+		return img;
 	}
 
-	nowDate() {
-		let date = new Date();
-		return date.toLocaleDateString('chinese', {
+	async nowDate(data) {
+		const date = new Date().toLocaleDateString('chinese', {
 			hour12: false
 		});
-	}
-
-	nowTime() {
-		let date = new Date();
-		return date.toLocaleTimeString('chinese', {
+		data[2] = date
+		const time = new Date().toLocaleTimeString('chinese', {
 			hour12: false
 		});
+		data[3] = time;
+		return;
 	}
 
 
@@ -175,10 +185,10 @@ class Im3xWidget {
 	}
 }
 
-module.exports = Im3xWidget
+module.exports = Im3xWidget;
 
 // 如果是在编辑器内编辑、运行、测试，则取消注释这行，便于调试：
-//await new Im3xWidget().test()
+// await new Im3xWidget().test()
 
 // 如果是组件单独使用（桌面配置选择这个组件使用，则取消注释这一行：
 await new Im3xWidget(args.widgetParameter).init()
