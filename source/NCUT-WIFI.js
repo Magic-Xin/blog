@@ -2,7 +2,7 @@
 // These must be at the very top of the file. Do not edit.
 // icon-color: red; icon-glyph: magic;
 // NCUT-WIFI
-// ver 1.0.5
+// ver 1.0.6
 // Made by MagicXin
 // 调用参数填写学号
 
@@ -54,15 +54,15 @@ class Im3xWidget {
 		used_text.font = Font.boldSystemFont(15);
 		used_text.lineLimit = 1;
 		widget.addSpacer(5);
-		if (data[0] >= 1024.0) {
-			data[0] /= 1024;
-			let used_data = widget.addText(Number(data[0]).toFixed(2).toString() + " GB");
+		if (data[2] >= 1024.0) {
+			data[2] /= 1024;
+			let used_data = widget.addText(Number(data[2]).toFixed(2).toString() + " GB");
 			used_data.textColor = new Color("#000000");
 			used_data.font = Font.systemFont(15);
 			used_data.lineLimit = 1;
 			used_data.centerAlignText();
 		} else {
-			let used_data = widget.addText(Number(data[0]).toFixed(2).toString() + " MB");
+			let used_data = widget.addText(Number(data[2]).toFixed(2).toString() + " MB");
 			used_data.textColor = new Color("#000000");
 			used_data.font = Font.systemFont(15);
 			used_data.lineLimit = 1;
@@ -75,15 +75,15 @@ class Im3xWidget {
 		left_text.font = Font.boldSystemFont(15);
 		left_text.lineLimit = 1;
 		widget.addSpacer(3);
-		if (data[1] >= 1024.0) {
-			data[1] /= 1024.0;
-			let left_data = widget.addText(Number(data[1]).toFixed(2).toString() + " GB");
+		if (data[3] >= 1024.0) {
+			data[3] /= 1024.0;
+			let left_data = widget.addText(Number(data[3]).toFixed(2).toString() + " GB");
 			left_data.textColor = new Color("#000000");
 			left_data.font = Font.systemFont(15);
 			left_data.lineLimit = 1;
 			left_data.centerAlignText();
 		} else {
-			let left_data = widget.addText(Number(data[1]).toFixed(2).toString() + " MB");
+			let left_data = widget.addText(Number(data[3]).toFixed(2).toString() + " MB");
 			left_data.textColor = new Color("#000000");
 			left_data.font = Font.systemFont(15);
 			left_data.lineLimit = 1;
@@ -91,12 +91,12 @@ class Im3xWidget {
 		}
 		widget.addSpacer(5);
 
-		let date_data = widget.addText('更新于:' + data[2]);
+		let date_data = widget.addText('更新于:' + data[0]);
 		date_data.font = Font.systemFont(10);
 		date_data.textColor = new Color("#696969");
 		date_data.centerAlignText();
 
-		let date_time = widget.addText(data[3]);
+		let date_time = widget.addText(data[1]);
 		date_time.font = Font.systemFont(10);
 		date_time.textColor = new Color("#696969");
 		date_time.centerAlignText();
@@ -134,7 +134,7 @@ class Im3xWidget {
 		}
 
 		if (typeof (result) != "undefined") {
-			let data = result.match(/([1-9]\d*\.\d*)|(0\.\d*[1-9])/g);
+			let data = result.match(/([1-9]\d*\.\d*)|(0\.\d*[1-9])|(\d*[0-9])/g);
 			await this.nowDate(data);
 			this.FILE_MGR.writeString(this.FILE_MGR.joinPath(this.FILE_MGR.documentsDirectory(), "NCUT_data"), data.toString());
 		}
@@ -153,11 +153,11 @@ class Im3xWidget {
 		const date = new Date().toLocaleDateString('chinese', {
 			hour12: false
 		});
-		data[2] = date
+		data[0] = date
 		const time = new Date().toLocaleTimeString('chinese', {
 			hour12: false
 		});
-		data[3] = time;
+		data[1] = time;
 		return;
 	}
 
