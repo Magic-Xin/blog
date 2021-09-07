@@ -133,7 +133,7 @@ class Im3xWidget {
 			return new Promise((resolve) => Timer.schedule(ms, false, resolve));
 		}
 
-		if (result[0]) {
+		if (result) {
 			let data = result.match(/([1-9]\d*\.\d*)|(0\.\d*[1-9])|(\d*[0-9])/g);
 			await this.nowDate(data);
 			this.FILE_MGR.writeString(this.FILE_MGR.joinPath(this.FILE_MGR.documentsDirectory(), "NCUT_data"), data.toString());
