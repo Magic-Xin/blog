@@ -2,7 +2,7 @@
 // These must be at the very top of the file. Do not edit.
 // icon-color: red; icon-glyph: magic;
 // NCUT-WIFI
-// ver 1.0.6
+// ver 1.0.8
 // Made by MagicXin
 // 调用参数填写学号
 
@@ -125,7 +125,7 @@ class Im3xWidget {
 	//加载数据
 	async getData() {
 		const account = this.arg;
-		const url = 'http://192.168.254.251:801/eportal/?c=ServiceInterface&a=loadUserInfo&callback=jQuery111305347245247052315_1603940434479&account=' + account + '&_=1603940434480';
+		const url = 'http://192.168.254.251:801/eportal/?c=ServiceInterface&a=loadUserInfo&callback=jQuery111305347245247052315_1603940434479&account=' + account;
 		const request = new Request(url);
 		const result = await Promise.any([request.loadString(), wait(1000)]);
 
@@ -133,7 +133,7 @@ class Im3xWidget {
 			return new Promise((resolve) => Timer.schedule(ms, false, resolve));
 		}
 
-		if (typeof (result) != "undefined") {
+		if (result[0] != undefined) {
 			let data = result.match(/([1-9]\d*\.\d*)|(0\.\d*[1-9])|(\d*[0-9])/g);
 			await this.nowDate(data);
 			this.FILE_MGR.writeString(this.FILE_MGR.joinPath(this.FILE_MGR.documentsDirectory(), "NCUT_data"), data.toString());
