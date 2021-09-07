@@ -1,14 +1,16 @@
 /**
- * mermaid.js | https://theme-next.js.org/docs/tag-plugins/mermaid
+ * mermaid.js | https://theme-next.org/docs/tag-plugins/mermaid
  */
+
+/* global hexo */
 
 'use strict';
 
-const { escapeHTML } = require('hexo-util');
-
-module.exports = function(args, content) {
+function mermaid(args, content) {
   return `<pre class="mermaid" style="text-align: center;">
-${args.join(' ')}
-${escapeHTML(content)}
-</pre>`;
-};
+            ${args.join(' ')}
+            ${content}
+          </pre>`;
+}
+
+hexo.extend.tag.register('mermaid', mermaid, {ends: true});

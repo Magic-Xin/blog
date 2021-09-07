@@ -15,7 +15,6 @@ menu:
   schedule: 日程表
   sitemap: 站点地图
   commonweal: 公益 404
-  unblock-music: 音乐解锁
 sidebar:
   overview: 站点概览
   toc: 文章目录
@@ -72,10 +71,10 @@ symbol:
   period: "。"
   colon: "："
 reward:
-  donate: 赞赏
-  wechatpay: 微信
+  donate: 打赏
+  wechatpay: 微信支付
   alipay: 支付宝
-  paypal: PayPal
+  paypal: 贝宝
   bitcoin: 比特币
 follow_me:
   welcome: 欢迎关注我的其它发布渠道

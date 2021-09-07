@@ -5,7 +5,7 @@
 const points = require('../events/lib/injects-point');
 
 hexo.extend.filter.register('theme_inject', injects => {
-  const filePath = hexo.theme.config.custom_file_path;
+  let filePath = hexo.theme.config.custom_file_path;
 
   if (!filePath) return;
 

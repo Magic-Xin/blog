@@ -14,11 +14,15 @@
     &::before {
       background: $grey-dark;
       border: 1px solid white;
+      border-radius: 50%;
+      content: ' ';
+      height: 10px;
+      left: 0;
       margin-left: -6px;
       margin-top: -4px;
       position: absolute;
       top: 50%;
-      round-icon(10px);
+      width: 10px;
     }
   }
 
@@ -30,11 +34,15 @@
 
     &::before {
       background: $grey;
+      border-radius: 50%;
+      content: ' ';
+      height: 8px;
+      left: 0;
       margin-left: -4px;
       margin-top: -4px;
       position: absolute;
       top: 50%;
-      round-icon(8px);
+      width: 8px;
     }
   }
 
@@ -50,20 +58,25 @@
 
   .post-header {
     border-bottom: 1px dashed $grey-light;
-    // 2px is equal to half the width of .posts-collapse::before
-    margin: 30px 2px 0;
+    margin: 30px 0;
     padding-left: 15px;
     position: relative;
-    transition: border $transition-ease;
+    transition-property: border;
+    the-transition();
 
     &::before {
       background: $grey;
       border: 1px solid white;
-      left: -6px;
+      border-radius: 50%;
+      content: ' ';
+      height: 6px;
+      left: 0;
+      margin-left: -4px;
       position: absolute;
       top: $font-size-smallest;
-      transition: background $transition-ease;
-      round-icon(6px);
+      transition-property: background;
+      width: 6px;
+      the-transition();
     }
 
     &:hover {
@@ -99,6 +112,7 @@
     background: $whitesmoke;
     content: ' ';
     height: 100%;
+    left: 0;
     margin-left: -2px;
     position: absolute;
     top: 1.25em;
