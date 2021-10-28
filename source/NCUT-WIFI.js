@@ -2,9 +2,8 @@
 // These must be at the very top of the file. Do not edit.
 // icon-color: red; icon-glyph: magic;
 // NCUT-WIFI
-// ver 1.0.8
+// ver 1.0.9
 // Made by MagicXin
-// 调用参数填写学号
 
 class Im3xWidget {
 	/**
@@ -43,7 +42,7 @@ class Im3xWidget {
 		}
 		icon.imageSize = new Size(15, 15);
 		header.addSpacer(7.5);
-		let title = header.addText(this.arg);
+		let title = header.addText("NCUT WiFi");
 		title.textOpacity = 0.9;
 		title.font = Font.systemFont(14);
 		title.textColor = new Color("#620062");
@@ -103,7 +102,7 @@ class Im3xWidget {
 
 		widget.backgroundColor = new Color("#FFFFFF");
 
-		let nextRefresh = Date.now() + 15000;
+		let nextRefresh = Date.now() + 30 * 60 * 1000;
 		widget.refreshAfterDate = new Date(nextRefresh);
 		return widget;
 	}
@@ -124,8 +123,8 @@ class Im3xWidget {
 
 	//加载数据
 	async getData() {
-		const account = this.arg;
-		const url = 'http://192.168.254.251:801/eportal/?c=ServiceInterface&a=loadUserInfo&callback=jQuery111305347245247052315_1603940434479&account=' + account;
+		const currentTime = new Date().getTime();
+		const url = 'http://10.106.1.47/cgi-bin/rad_user_info\?callback\=jQuery112407651946506233822_' + currentTime + "&_=" + currentTime;
 		const request = new Request(url);
 		const result = await Promise.any([request.loadString(), wait(1000)]);
 
@@ -133,8 +132,12 @@ class Im3xWidget {
 			return new Promise((resolve) => Timer.schedule(ms, false, resolve));
 		}
 
-		if (result[0] != undefined) {
-			let data = result.match(/([1-9]\d*\.\d*)|(0\.\d*[1-9])|(\d*[0-9])/g);
+		if (result) {
+			let dic = result.match(/\((.+?)\)/g);
+    		dic = dic[0];
+    		dic = dic.substring(1, dic.length - 1);
+    		dic = JSON.parse(dic);
+			let data = ['0', '0', dic['sum_bytes']/1024/1024, dic['remain_bytes']/1024/1024];
 			await this.nowDate(data);
 			this.FILE_MGR.writeString(this.FILE_MGR.joinPath(this.FILE_MGR.documentsDirectory(), "NCUT_data"), data.toString());
 		}
