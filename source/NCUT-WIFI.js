@@ -2,7 +2,7 @@
 // These must be at the very top of the file. Do not edit.
 // icon-color: red; icon-glyph: magic;
 // NCUT-WIFI
-// ver 1.0.9
+// ver 1.0.10
 // Made by MagicXin
 
 class Im3xWidget {
@@ -123,8 +123,7 @@ class Im3xWidget {
 
 	//加载数据
 	async getData() {
-		const currentTime = new Date().getTime();
-		const url = 'http://10.106.1.47/cgi-bin/rad_user_info\?callback\=jQuery112407651946506233822_' + currentTime + "&_=" + currentTime;
+		const url = 'http://ip.ncut.edu.cn/cgi-bin/rad_user_info\?callback\=jQuery';
 		const request = new Request(url);
 		const result = await Promise.any([request.loadString(), wait(1000)]);
 
